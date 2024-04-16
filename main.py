@@ -132,7 +132,7 @@ def menu():
     """
     prints the menu
     """
-    
+
     # prints out the title
     print()
     print("-"*77)
@@ -148,3 +148,50 @@ def menu():
     print("[q] quit")
     print("-"*77)
 
+def main():
+    # loop until user types q
+    user_quit = False
+    concert_seats = []
+    while (not user_quit):
+
+        # menu
+        menu()
+
+        # get first character of input
+        user_input = input("Enter a command:")
+        lower_input = user_input.lower()
+        first_char = lower_input[0:1]
+
+        # menu choices, use a switch-like if-elif control structure
+        if first_char.lower() == 'q':
+            print("Thank you for using Outdoor Park Concert App!")
+            user_quit = True
+        # elif first_char.lower() == 'b':
+        #     try:
+        #         js_seating = pd.read_json('seating.json')
+        #     except:
+        #         print("Error: in load seatings. Please try again")
+        #         concert_seats = createSeating()
+               
+        #     else:
+        #         buySeating(js_seating)
+        elif first_char.lower() == 'v':
+            concert_seats=readJson("seating.json")
+            if len(concert_seats)!=0:
+                printSeating(concert_seats)
+            else:
+                concert_seats = createSeating()
+                printSeating(concert_seats)
+        # elif first_char.lower() == 's':
+        #     searchName()
+        
+        # elif first_char.lower() == 'd':
+        #     printPurchases()
+        elif first_char.lower() == 'r':
+            print("Reset all seatings and purge all history purchases")
+            concert_seats = createSeating()
+            printSeating(concert_seats)
+        else:
+            print("ERROR: no such command")
+
+main()
