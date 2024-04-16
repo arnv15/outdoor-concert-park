@@ -76,3 +76,55 @@ def saveJson(seating, filename):
         print("Error: File " + filename + " does not appear to exist.")
         return -1      
    
+def printSeating(seating):
+    '''
+        Print out seatings row, column, type, price, available or not
+    '''
+    n_row = 20
+    n_col = 26
+   
+    #create array ["A", ..., "Z"] for seatings column
+    alpha = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+   
+    # range of seats
+    frontSeat=range(5)
+    middleSeat=range(5,11)
+    backSeat=range(11,20)  
+   
+    # print seats
+    print('-'*77)
+    print(' '*35+'Seating')
+    print('-'*77)
+
+    seatno=0
+    prt_head=" \t"
+
+    # prints the first row with the information of the colomn letter
+    for i in alpha:
+        prt_head+=i + " "
+    prt_head += "\tType\tPrice"
+    print(prt_head)  
+    print()
+    
+    # prints each row after the first row 
+    for r in range(n_row):
+        prt_col=f"{r}\t"
+        for c in range(n_col):
+            prt_col += seating[seatno]["Available"] + " "
+            seatno+=1
+        prt_tail=""
+
+        # depending on seat row prints section and cost
+        if r in frontSeat:
+            prt_tail="\tfront\t$80"
+
+        elif r in middleSeat:
+            prt_tail="\tmiddle\t$50"
+
+        elif r in backSeat:
+            prt_tail="\tback\t$25"
+
+        prt_col += prt_tail
+        print(prt_col)    
+    print()
+
