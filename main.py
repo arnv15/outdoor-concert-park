@@ -32,7 +32,7 @@ def createSeating():
             elif r in backSeat:
                 price=25
                 seat_type="Back"
-            seating.append({"col":c, "row":r, "Name":"", "Email":"", "Seat Type":seat_type, "Price":price,"Available":"."})        
+            seating.append({"col":c, "row":r, "Name":"", "Email":"", "Seat Type":seat_type, "Price":price, "Available":"a"})        
     saveJson(seating, "seating.json")
    
     #purge receipt.json
@@ -148,6 +148,29 @@ def menu():
     print("[q] quit")
     print("-"*77)
 
+def buySeating(js_seating):
+    askBulk = input("Would you like to buy your seats in bulk? (more than 1 seat): ").lower()
+    if askBulk[0:1] == "y":
+        pass
+    else:
+        row = int(input("Which row would you like to sit in?: "))
+        col = int(input("Which colomn would you like to sit in?: "))
+        name = input("What is your full name:")
+        email = input("What is your email address: ")
+        
+
+def searchName():
+    name = input("What is your name: ").lower()
+    email = input("What is your email address: ")
+    seats = readJson("seating.json")
+    for i in seats:
+        if i["Name"].lower() == name and i["Email"] == email:
+            print(f"{name}'s seat is located at row {i["row"]} and colomn {i["col"]}")
+            print(f"Seating type is {i["Seat Type"]}, and costs {i["Price"]}")
+        else:
+            continue
+
+
 def main():
     # loop until user types q
     user_quit = False
@@ -166,15 +189,16 @@ def main():
         if first_char.lower() == 'q':
             print("Thank you for using Outdoor Park Concert App!")
             user_quit = True
-        # elif first_char.lower() == 'b':
-        #     try:
-        #         js_seating = pd.read_json('seating.json')
-        #     except:
-        #         print("Error: in load seatings. Please try again")
-        #         concert_seats = createSeating()
+
+        elif first_char.lower() == 'b':
+            try:
+                js_seating = pd.read_json('seating.json')
+            except:
+                print("Error: in load seatings. Please try again")
+                concert_seats = createSeating()
                
-        #     else:
-        #         buySeating(js_seating)
+            else:
+                buySeating(js_seating)
         elif first_char.lower() == 'v':
             concert_seats=readJson("seating.json")
             if len(concert_seats)!=0:
