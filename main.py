@@ -62,3 +62,17 @@ def readJson(filename):
    
     return seating
 
+def saveJson(seating, filename):
+    '''
+        Receive an object and write to filename with json format
+    '''
+           
+    with open(filename , "w") as write:
+        json.dump(seating, write, indent=2)
+   
+    try:
+        seating_file = open(filename, "r")
+    except IOError:
+        print("Error: File " + filename + " does not appear to exist.")
+        return -1      
+   
