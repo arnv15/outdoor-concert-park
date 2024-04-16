@@ -41,3 +41,24 @@ def createSeating():
    
     return seating
 
+def readJson(filename):
+    '''
+        Read json file, then return an object
+    '''
+    try:
+        seating_file = open(filename, "r")
+    except IOError:
+        #print("Error: File " + filename + " does not appear to exist.")
+        return []
+
+    # read the file
+    file_data = seating_file.read()
+
+    # close the file
+    seating_file.close()
+
+    # decode json into an object
+    seating=jsonpickle.decode(file_data)
+   
+    return seating
+
