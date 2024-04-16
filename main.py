@@ -105,7 +105,7 @@ def printSeating(seating):
     prt_head += "\tType\tPrice"
     print(prt_head)  
     print()
-    
+
     # prints each row after the first row 
     for r in range(n_row):
         prt_col=f"{r}\t"
@@ -127,4 +127,24 @@ def printSeating(seating):
         prt_col += prt_tail
         print(prt_col)    
     print()
+
+def menu():
+    """
+    prints the menu
+    """
+    
+    # prints out the title
+    print()
+    print("-"*77)
+    print(" "*26+ "Outdoor Park Concert App")
+    print("-"*77)
+
+    # prints out the options
+    print("[b] Buy")
+    print("[v] View seating")
+    print("[s] Search for a customer by name and Display the tickets purchased")
+    print("[d] Display all the purchases made and Total income")
+    print("[r] Reset seatings and purge all purchases")
+    print("[q] quit")
+    print("-"*77)
 
