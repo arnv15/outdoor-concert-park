@@ -192,11 +192,11 @@ def buySeating(js_seating):
                 ind = 0
                 for i in booked_seats:
                     row = int(booked_seats[ind][:-1])
-                    col = booked_seats[ind][-1]
+                    col = booked_seats[ind][-1].lower()
                     for k in seating:
-                        if (k["row"] == row) and (k["col"] == col):
+                        if (k["row"] == row) and (k["col"].lower() == col):
                             # print(seating[k]["Available"])
-                            seating[k]["Available"] = "X"
+                            k["Available"] = "X"
                     ind += 1
                 saveJson(seating, "seating.json")
                 buy = True
