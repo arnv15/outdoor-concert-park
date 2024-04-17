@@ -68,7 +68,7 @@ def saveJson(seating, filename):
     """
            
     with open(filename , "w") as write:
-        json.dump(seating, write, indent=2)
+        json.dump(seating, write, indent=4)
    
     try:
         seating_file = open(filename, "r")
@@ -172,12 +172,24 @@ def buySeating(js_seating):
                 booked_seats.append(seat)
 
             # prints reciept
-            subtotal, finalCost = createReciept(name, email, booked_seats)
+            seatLoc, ticketNum, fee, cost, subtotal, tax, total = createReciept(name, email, booked_seats)
 
             confirm = input("Confirm purchase (y/n)? ")
             if confirm == "y":
                 # add reciept into receipt.json
-
+                rec = []
+                rec.append({"Name": name,
+                            "Email": email,
+                            "Number of Tickets": ticketNum,
+                            "Type": seatLoc,
+                            "Seats": booked_seats,
+                            "Cost": cost,
+                            "Fee": fee,
+                            "Subtotal": subtotal,
+                            "Tax": tax,
+                            "Total": total})
+                saveJson(rec, "receipt.json")
+                
                 buy = True
             else:
                 continue
@@ -189,23 +201,49 @@ def createReciept(name, email, seats):
     """
     creates reciept for every purchase and stores into variables
     """
+    
+    # find location of seats
+    if 0 <= seats[0][0] <= 4:
+        seatLoc = "front"
+    elif 5 <= seats[0][0] <= 10:
+        seatLoc = "middle"
+    else:
+        seatLoc = "back"
 
+    # get cost of all the seats
+    if seatLoc == "front":
+        cost = len(seats) * 80
+    elif seatLoc == "middle":
+        cost = len(seats) * 50
+    else:
+        cost = len(seats) * 25
+
+    # create variables for the information
+    seatLoc = ""
+    ticketNum = len(seats)
+    fee = 5 * ticketNum
+    subtotal = cost + fee
+    tax = subtotal * 1.0725
+    total = subtotal + tax
+    # prints out the reciept
     print("-"*55)
     print(" "*20 + "Reciept")   
     print("-"*55)
     print("-"*55)
     print(f"Name             : {name}")
     print(f"Email            : {email}")
-    print(f"Number of Tickets: {len(seats)}")
+    print(f"Number of Tickets: {ticketNum}")
     print(f"Seats            : {seats}")
-    print(f"Cost             : ")
-    print(f"Mask Fee         : ${5*len(seats)}")
-    print(f"Sub-Total        : ")
-    print(f"Tax              : ")
+    print(f"Cost             : ${cost}")
+    print(f"Mask Fee         : ${fee}")
+    print(f"Sub-Total        : ${subtotal}")
+    print(f"Tax              : ${tax}")
     print("-"*55)
-    print(f"Total            : ")
+    print(f"Total            : ${total}")
     print("-"*55)
 
+    # return all the information
+    return seatLoc, ticketNum, fee, cost, subtotal, tax, total
 
 def searchName():
     name = input("What is your name: ").lower()
