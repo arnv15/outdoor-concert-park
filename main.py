@@ -149,7 +149,7 @@ def buySeating(js_seating):
     function to buy seating
     """
     buy = False
-    printSeating()
+    printSeating(concert_seats)
     while (not buy):
         num_seats = int(input("How much seats would you like to buy (max 24): "))
         if num_seats > 24:
@@ -186,7 +186,19 @@ def buySeating(js_seating):
                             "Tax": tax,
                             "Total": total})
                 saveJson(rec, "receipt.json")
-
+                # changes available "." to not available "X"
+                seating = readJson("seating.json")
+                # nested loops to cover all the seats
+                ind = 0
+                for i in booked_seats:
+                    row = int(booked_seats[ind][:-1])
+                    col = booked_seats[ind][-1]
+                    for k in seating:
+                        if (k["row"] == row) and (k["col"] == col):
+                            # print(seating[k]["Available"])
+                            seating[k]["Available"] = "X"
+                    ind += 1
+                saveJson(seating, "seating.json")
                 buy = True
             else:
                 continue
@@ -195,10 +207,11 @@ def readReciepts():
     """
     gets all the receipts and formats them then prints out total profit"""
     reciepts = readJson("receipt.json")
+    print("-"*55)
+    print(" "*20 + "All Receipts")   
+    print("-"*55)
     for i in reciepts:
-        print("-"*55)
-        print(" "*20 + "Reciept")   
-        print("-"*55)
+ 
         print("-"*55)
         print(f"Name             : {i["Name"]}")
         print(f"Email            : {i["Email"]}")
@@ -223,9 +236,9 @@ def createReciept(name, email, seats):
     """
     
     # find location of seats
-    if 0 <= seats[0][0] <= 4:
+    if 0 <= int(seats[0][0]) <= 4:
         seatLoc = "front"
-    elif 5 <= seats[0][0] <= 10:
+    elif 5 <= int(seats[0][0]) <= 10:
         seatLoc = "middle"
     else:
         seatLoc = "back"
@@ -243,11 +256,11 @@ def createReciept(name, email, seats):
     ticketNum = len(seats)
     fee = 5 * ticketNum
     subtotal = cost + fee
-    tax = subtotal * 1.0725
+    tax = round(subtotal * 0.0725, 2)
     total = subtotal + tax
     # prints out the reciept
     print("-"*55)
-    print(" "*20 + "Reciept")   
+    print(" "*20 + "Reciept")
     print("-"*55)
     print("-"*55)
     print(f"Name             : {name}")
