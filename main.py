@@ -7,14 +7,14 @@ import uuid
 import pandas as pd
 pd.options.mode.chained_assignment=None
 pd.set_option("max_colwidth", None)
-pd.set_option('display.max_columns', None)
+pd.set_option("display.max_columns", None)
 
 def createSeating():
-    '''
+    """
         Reset all seatings and purge all purchases
-    '''
+    """
     n_row = 20
-    n_col = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+    n_col = [chr(i) for i in range(ord("A"), ord("Z")+1)]
     seating=[]
     price=0
     frontSeat=range(5)
@@ -42,9 +42,9 @@ def createSeating():
     return seating
 
 def readJson(filename):
-    '''
+    """
         Read json file, then return an object
-    '''
+    """
     try:
         seating_file = open(filename, "r")
     except IOError:
@@ -63,9 +63,9 @@ def readJson(filename):
     return seating
 
 def saveJson(seating, filename):
-    '''
+    """
         Receive an object and write to filename with json format
-    '''
+    """
            
     with open(filename , "w") as write:
         json.dump(seating, write, indent=2)
@@ -77,14 +77,14 @@ def saveJson(seating, filename):
         return -1      
    
 def printSeating(seating):
-    '''
+    """
         Print out seatings row, column, type, price, available or not
-    '''
+    """
     n_row = 20
     n_col = 26
    
     #create array ["A", ..., "Z"] for seatings column
-    alpha = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+    alpha = [chr(i) for i in range(ord("A"), ord("Z")+1)]
    
     # range of seats
     frontSeat=range(5)
@@ -92,9 +92,9 @@ def printSeating(seating):
     backSeat=range(11,20)  
    
     # print seats
-    print('-'*77)
-    print(' '*35+'Seating')
-    print('-'*77)
+    print("-"*77)
+    print(" "*35+"Seating")
+    print("-"*77)
 
     seatno=0
     prt_head=" \t"
@@ -144,34 +144,75 @@ def menu():
     print("[v] View seating")
     print("[s] Search for a customer by name and Display the tickets purchased")
     print("[d] Display all the purchases made and Total income")
-    print("[r] Reset seatings and purge all purchases")
     print("[q] quit")
     print("-"*77)
 
 def buySeating(js_seating):
-    askBulk = input("Would you like to buy your seats in bulk? (more than 1 seat): ").lower()
-    if askBulk[0:1] == "y":
-        pass
-    else:
-        row = int(input("Which row would you like to sit in?: "))
-        col = int(input("Which colomn would you like to sit in?: "))
-        name = input("What is your full name:")
-        email = input("What is your email address: ")
+    """
+    function to buy seating
+    """
+    buy = False
+    printSeating()
+    while (not buy):
+        num_seats = int(input("How much seats would you like to buy (max 24): "))
+        if num_seats > 24:
+            print("Max is 24")
+        else:
+            # logic to get all of the information
+            start_seat = input("Enter starting seat number (ex. 15A): ")
+            name = input("What is your full name?: ")
+            email = input("What is your email?: ")
+            print()
+            start_row = int(start_seat[:-1])
+            start_col = start_seat[-1]
+            booked_seats = []
+            for i in range(num_seats):
+                # Construct the seat number
+                seat = str(start_row) + chr(ord(start_col) + i)
+                booked_seats.append(seat)
+
+            # prints reciept
+            subtotal, finalCost = createReciept(name, email, booked_seats)
+
+            confirm = input("Confirm purchase (y/n)? ")
+            if confirm == "y":
+                # add reciept into receipt.json
+
+                buy = True
+            else:
+                continue
         
+def readReciepts():
+    pass
+
+def createReciept(name, email, seats):
+    
+
+    print("-"*55)
+    print(" "*20 + "Reciept")   
+    print("-"*55)
+    print("-"*55)
+    print(f"Name             : ")
+    print(f"Email            : ")
+    print(f"Number of Tickets: ")
+    print(f"Seats            : ")
+    print(f"Cost             : ")
+    print(f"Mask Fee         : ")
+    print(f"Sub-Total        : ")
+    print(f"Tax              : ")
+    print("-"*55)
+    print(f"Total            : ")
+    print("-"*55)
+
 
 def searchName():
     name = input("What is your name: ").lower()
-    email = input("What is your email address: ")
     seats = readJson("seating.json")
-    for i in seats:
-        if i["Name"].lower() == name and i["Email"] == email:
-            print(f"{name}'s seat is located at row {i["row"]} and colomn {i["col"]}")
-            print(f"Seating type is {i["Seat Type"]}, and costs {i["Price"]}")
-        else:
-            continue
+    
 
 
 def main():
+    global concert_seats
     # loop until user types q
     user_quit = False
     concert_seats = []
@@ -186,32 +227,33 @@ def main():
         first_char = lower_input[0:1]
 
         # menu choices, use a switch-like if-elif control structure
-        if first_char.lower() == 'q':
+        if first_char.lower() == "q":
             print("Thank you for using Outdoor Park Concert App!")
             user_quit = True
 
-        elif first_char.lower() == 'b':
+        elif first_char.lower() == "b":
             try:
-                js_seating = pd.read_json('seating.json')
+                js_seating = pd.read_json("seating.json")
             except:
                 print("Error: in load seatings. Please try again")
                 concert_seats = createSeating()
                
             else:
                 buySeating(js_seating)
-        elif first_char.lower() == 'v':
-            concert_seats=readJson("seating.json")
-            if len(concert_seats)!=0:
+        elif first_char.lower() == "v":
+            concert_seats = readJson("seating.json")
+            if len(concert_seats) != 0:
                 printSeating(concert_seats)
             else:
                 concert_seats = createSeating()
                 printSeating(concert_seats)
-        # elif first_char.lower() == 's':
-        #     searchName()
+        elif first_char.lower() == "s":
+            searchName()
         
-        # elif first_char.lower() == 'd':
+        # elif first_char.lower() == "d":
         #     printPurchases()
-        elif first_char.lower() == 'r':
+        
+        elif first_char.lower() == "r":
             print("Reset all seatings and purge all history purchases")
             concert_seats = createSeating()
             printSeating(concert_seats)
