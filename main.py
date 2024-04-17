@@ -186,18 +186,20 @@ def readReciepts():
     pass
 
 def createReciept(name, email, seats):
-    
+    """
+    creates reciept for every purchase and stores into variables
+    """
 
     print("-"*55)
     print(" "*20 + "Reciept")   
     print("-"*55)
     print("-"*55)
-    print(f"Name             : ")
-    print(f"Email            : ")
-    print(f"Number of Tickets: ")
-    print(f"Seats            : ")
+    print(f"Name             : {name}")
+    print(f"Email            : {email}")
+    print(f"Number of Tickets: {len(seats)}")
+    print(f"Seats            : {seats}")
     print(f"Cost             : ")
-    print(f"Mask Fee         : ")
+    print(f"Mask Fee         : ${5*len(seats)}")
     print(f"Sub-Total        : ")
     print(f"Tax              : ")
     print("-"*55)
