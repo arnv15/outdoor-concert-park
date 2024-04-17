@@ -1,9 +1,6 @@
-import numpy as np
-import random
+# import all the needed things
 import json
 import jsonpickle
-import re
-import uuid
 import pandas as pd
 pd.options.mode.chained_assignment=None
 pd.set_option("max_colwidth", None)
@@ -189,13 +186,36 @@ def buySeating(js_seating):
                             "Tax": tax,
                             "Total": total})
                 saveJson(rec, "receipt.json")
-                
+
                 buy = True
             else:
                 continue
         
 def readReciepts():
-    pass
+    """
+    gets all the receipts and formats them then prints out total profit"""
+    reciepts = readJson("receipt.json")
+    for i in reciepts:
+        print("-"*55)
+        print(" "*20 + "Reciept")   
+        print("-"*55)
+        print("-"*55)
+        print(f"Name             : {i["Name"]}")
+        print(f"Email            : {i["Email"]}")
+        print(f"Number of Tickets: {i["Number of Tickets"]}")
+        print(f"Seats            : {i["Type"]}")
+        print(f"Cost             : ${i["Cost"]}")
+        print(f"Mask Fee         : ${i["Fee"]}")
+        print(f"Sub-Total        : ${i["Subtotal"]}")
+        print(f"Tax              : ${i["Tax"]}")
+        print("-"*55)
+        print(f"Total            : ${i["Total"]}")
+        print("-"*55) 
+        profit = 0
+        profit += i["Total"]
+    print("-"*55)
+    print(f"Total Profit generated is ${profit}")
+    print("-"*55)
 
 def createReciept(name, email, seats):
     """
@@ -246,10 +266,33 @@ def createReciept(name, email, seats):
     return seatLoc, ticketNum, fee, cost, subtotal, tax, total
 
 def searchName():
+    """
+    searches through people who bought a ticket for their information
+    """
     name = input("What is your name: ").lower()
-    seats = readJson("seating.json")
-    
-
+    receipts = readJson("receipt.json")
+    # loop through all the reciepts
+    for i in receipts:
+        name_in_rec = i["Name"].lower()
+        if name_in_rec == name:
+            # print out the reciept
+            print("-"*55)
+            print(" "*20 + f"Receipt for {name.capitalize()}")   
+            print("-"*55)
+            print("-"*55)
+            print(f"Name             : {i["Name"]}")
+            print(f"Email            : {i["Email"]}")
+            print(f"Number of Tickets: {i["Number of Tickets"]}")
+            print(f"Seats            : {i["Type"]}")
+            print(f"Cost             : ${i["Cost"]}")
+            print(f"Mask Fee         : ${i["Fee"]}")
+            print(f"Sub-Total        : ${i["Subtotal"]}")
+            print(f"Tax              : ${i["Tax"]}")
+            print("-"*55)
+            print(f"Total            : ${i["Total"]}")
+            print("-"*55) 
+        else:
+            print(f"No results for \"{name.capitalize()}\"")
 
 def main():
     global concert_seats
@@ -290,13 +333,9 @@ def main():
         elif first_char.lower() == "s":
             searchName()
         
-        # elif first_char.lower() == "d":
-        #     printPurchases()
+        elif first_char.lower() == "d":
+            readReciepts()
         
-        elif first_char.lower() == "r":
-            print("Reset all seatings and purge all history purchases")
-            concert_seats = createSeating()
-            printSeating(concert_seats)
         else:
             print("ERROR: no such command")
 
