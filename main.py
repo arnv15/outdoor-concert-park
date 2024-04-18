@@ -255,108 +255,112 @@ def buySeating():
     buy = False
     printSeating(concert_seats)
     while (not buy):
+        seating = readJson("seating.json")
         num_seats = int(input("How much seats would you like to buy (max 24): "))
         if num_seats > 24:
             print("Max is 24")
         else:
             # logic to get all of the information
             start_seat = input("Enter starting seat number (ex. 15A): ")
-            name = input("What is your full name?: ")
-            email = input("What is your email?: ")
-            print()
-            start_row = int(start_seat[:-1])
-            start_col = start_seat[-1].lower()
-            booked_seats = []
-            for i in range(num_seats):
-                # Construct the seat number
-                seat = str(start_row) + chr(ord(start_col) + i)
-                booked_seats.append(seat)
+            # check if input is correct
+            if (0 <= start_seat[:-1] <= 19) and (ord("a") <= ord(start_seat[-1].lower()) <= ord("z")):
+                name = input("What is your full name?: ")
+                email = input("What is your email?: ")
+                print()
+                start_row = int(start_seat[:-1])
+                start_col = start_seat[-1].lower()
+                booked_seats = []
+                for i in range(num_seats):
+                    # Construct the seat number
+                    seat = str(start_row) + chr(ord(start_col) + i)
+                    booked_seats.append(seat)
 
-            # prints reciept
-            seatLoc, ticketNum, fee, cost, subtotal, tax, total = createReciept(name, email, booked_seats)
+                # prints reciept
+                seatLoc, ticketNum, fee, cost, subtotal, tax, total = createReciept(name, email, booked_seats)
 
-            confirm = input("Confirm purchase (y/n)? ")
-            if confirm == "y":
-                # add reciept into receipt.json
-                rec = readJson("receipt.json")
-                rec.append({"Name": name,
-                            "Email": email,
-                            "Number of Tickets": ticketNum,
-                            "Type": seatLoc,
-                            "Seats": booked_seats,
-                            "Cost": cost,
-                            "Fee": fee,
-                            "Subtotal": subtotal,
-                            "Tax": tax,
-                            "Total": total})
-                saveJson(rec, "receipt.json")
-                # changes available "." to not available "X"
-                seating = readJson("seating.json")
-                # nested loops to cover all the seats
-                ind = 0
-                for i in booked_seats:
-                    row = int(booked_seats[ind][:-1])
-                    col = booked_seats[ind][-1].lower()
-                    for k in seating:
-                        if (k["row"] == row) and (k["col"].lower() == col):
-                            # print(seating[k]["Available"])
-                            k["Available"] = "X"
-                    ind += 1
-
-                # replace "." to cover the social distancing seats
-                last = booked_seats[-1]
-                end_row = int(last[:-1])
-                end_col = str(last[-1].lower())
-
-                if (start_row >= 1) and (start_row <= 18):
-                    # logic to put "e" a row above the "X"
+                confirm = input("Confirm purchase (y/n)? ")
+                if confirm[0:1] == "y":
+                    # add reciept into receipt.json
+                    rec = readJson("receipt.json")
+                    rec.append({"Name": name,
+                                "Email": email,
+                                "Number of Tickets": ticketNum,
+                                "Type": seatLoc,
+                                "Seats": booked_seats,
+                                "Cost": cost,
+                                "Fee": fee,
+                                "Subtotal": subtotal,
+                                "Tax": tax,
+                                "Total": total})
+                    saveJson(rec, "receipt.json")
+                    # changes available "." to not available "X"
+                    # nested loops to cover all the seats
                     ind = 0
                     for i in booked_seats:
-                        row = int(booked_seats[ind][:-1]) - 1
+                        row = int(booked_seats[ind][:-1])
                         col = booked_seats[ind][-1].lower()
                         for k in seating:
                             if (k["row"] == row) and (k["col"].lower() == col):
                                 # print(seating[k]["Available"])
-                                k["Available"] = "e"
-                        ind += 1
-                    # logic to put "e" a row below the "X"
-                    ind = 0
-                    for i in booked_seats:
-                        row = int(booked_seats[ind][:-1]) + 1
-                        col = booked_seats[ind][-1].lower()
-                        for k in seating:
-                            if (k["row"] == row) and (k["col"].lower() == col):
-                                # print(seating[k]["Available"])
-                                k["Available"] = "e"
+                                k["Available"] = "X"
                         ind += 1
 
-                    socialDistancePlacer()
-                elif start_row >= 1:
-                    # to put the "e" above the "X"
-                    ind = 0
-                    for i in booked_seats:
-                        row = int(booked_seats[ind][:-1]) - 1
-                        col = booked_seats[ind][-1].lower()
-                        for k in seating:
-                            if (k["row"] == row) and (k["col"].lower() == col):
-                                k["Available"] = "e"
-                        ind += 1
-                    
-                    socialDistancePlacer()
-                elif start_row <= 18:
-                    #  to put the "e" below the "X"
-                    ind = 0
-                    for i in booked_seats:
-                        row = int(booked_seats[ind][:-1]) + 1
-                        col = booked_seats[ind][-1].lower()
-                        for k in seating:
-                            if (k["row"] == row) and (k["col"].lower() == col):
-                                # print(seating[k]["Available"])
-                                k["Available"] = "e"
-                        ind += 1
-                    socialDistancePlacer()
-                saveJson(seating, "seating.json")
-                buy = True
+                    # replace "." to cover the social distancing seats
+                    last = booked_seats[-1]
+                    end_row = int(last[:-1])
+                    end_col = str(last[-1].lower())
+
+                    if (start_row >= 1) and (start_row <= 18):
+                        # logic to put "e" a row above the "X"
+                        ind = 0
+                        for i in booked_seats:
+                            row = int(booked_seats[ind][:-1]) - 1
+                            col = booked_seats[ind][-1].lower()
+                            for k in seating:
+                                if (k["row"] == row) and (k["col"].lower() == col):
+                                    # print(seating[k]["Available"])
+                                    k["Available"] = "e"
+                            ind += 1
+                        # logic to put "e" a row below the "X"
+                        ind = 0
+                        for i in booked_seats:
+                            row = int(booked_seats[ind][:-1]) + 1
+                            col = booked_seats[ind][-1].lower()
+                            for k in seating:
+                                if (k["row"] == row) and (k["col"].lower() == col):
+                                    # print(seating[k]["Available"])
+                                    k["Available"] = "e"
+                            ind += 1
+
+                        socialDistancePlacer()
+                    elif start_row >= 1:
+                        # to put the "e" above the "X"
+                        ind = 0
+                        for i in booked_seats:
+                            row = int(booked_seats[ind][:-1]) - 1
+                            col = booked_seats[ind][-1].lower()
+                            for k in seating:
+                                if (k["row"] == row) and (k["col"].lower() == col):
+                                    k["Available"] = "e"
+                            ind += 1
+                        
+                        socialDistancePlacer()
+                    elif start_row <= 18:
+                        #  to put the "e" below the "X"
+                        ind = 0
+                        for i in booked_seats:
+                            row = int(booked_seats[ind][:-1]) + 1
+                            col = booked_seats[ind][-1].lower()
+                            for k in seating:
+                                if (k["row"] == row) and (k["col"].lower() == col):
+                                    # print(seating[k]["Available"])
+                                    k["Available"] = "e"
+                            ind += 1
+                        socialDistancePlacer()
+                    saveJson(seating, "seating.json")
+                    buy = True
+                else:
+                    continue
             else:
                 continue
         
