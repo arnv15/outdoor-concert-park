@@ -1,10 +1,6 @@
 # import all the needed things
 import json
 import jsonpickle
-import pandas as pd
-pd.options.mode.chained_assignment=None
-pd.set_option("max_colwidth", None)
-pd.set_option("display.max_columns", None)
 
 def createSeating():
     """
@@ -488,14 +484,7 @@ def main():
             user_quit = True
 
         elif first_char.lower() == "b":
-            try:
-                js_seating = pd.read_json("seating.json")
-            except:
-                print("Error: in load seatings. Please try again")
-                concert_seats = createSeating()
-               
-            else:
-                buySeating(js_seating)
+                buySeating()
         elif first_char.lower() == "v":
             concert_seats = readJson("seating.json")
             if len(concert_seats) != 0:
@@ -512,4 +501,5 @@ def main():
         else:
             print("ERROR: no such command")
 
+# call main function to start program
 main()
