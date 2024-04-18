@@ -259,7 +259,7 @@ def buySeating():
             # logic to get all of the information
             start_seat = input("Enter starting seat number (ex. 15A): ")
             # check if input is correct
-            if (0 <= start_seat[:-1] <= 19) and (ord("a") <= ord(start_seat[-1].lower()) <= ord("z")):
+            if (0 <= int(start_seat[:-1]) <= 19) and (ord("a") <= ord(start_seat[-1].lower()) <= ord("z")):
                 name = input("What is your full name?: ")
                 email = input("What is your email?: ")
                 print()
