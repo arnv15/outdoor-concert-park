@@ -125,6 +125,109 @@ def printSeating(seating):
         print(prt_col)    
     print()
 
+def socialDistancePlacer():
+    """
+    places the "e" around the seats 
+    """
+    if ord("a") == ord(start_col):
+        for k in seating:
+            if (k["row"] == end_row) and (k["col"].lower() == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and (k["col"].lower() == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and (k["col"].lower() == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row) and (k["col"].lower() == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and (k["col"].lower() == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and (k["col"].lower() == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+
+    if ord("z") == ord(end_col):
+        for k in seating:
+            if (k["row"] == start_row) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+
+    if ord("b") == ord(start_col):
+        for k in seating:    
+            if (k["row"] == start_row) and (k["col"].lower() == "a"):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and (k["col"].lower() == "a"):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and (k["col"].lower() == "a"):
+                k["Available"] = "e"
+            elif (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+        
+    if ord("y") == ord(end_col):
+        for k in seating:    
+            if (k["row"] == end_row) and (k["col"].lower() == "z"):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and (k["col"].lower() == "z"):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and (k["col"].lower() == "z"):
+                k["Available"] = "e"
+            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+
+    if (ord("c") <= ord(start_col)) and (ord("x") >= ord(end_col)):
+        for k in seating:
+            if (k["row"] == start_row) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and ((k["col"].lower()) == chr(ord(start_col)-1)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row+1) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == start_row-1) and ((k["col"].lower()) == chr(ord(start_col)-2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row) and ((k["col"].lower()) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and ((k["col"].lower()) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and ((k["col"].lower()) == chr(ord(end_col)+1)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row) and ((k["col"].lower()) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row+1) and ((k["col"].lower()) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+            elif (k["row"] == end_row-1) and ((k["col"].lower()) == chr(ord(end_col)+2)):
+                k["Available"] = "e"
+
 def menu():
     """
     prints the menu
@@ -144,10 +247,11 @@ def menu():
     print("[q] quit")
     print("-"*77)
 
-def buySeating(js_seating):
+def buySeating():
     """
     function to buy seating
     """
+    global start_col, start_row, end_col, end_row, seating
     buy = False
     printSeating(concert_seats)
     while (not buy):
@@ -226,82 +330,9 @@ def buySeating(js_seating):
                                 k["Available"] = "e"
                         ind += 1
 
-                    # All of the following is to put the "e" around the "X"
-                    if ord("a") == ord(start_col):
-                        if (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-
-                    if ord("z") == ord(end_col):
-                        if (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-
-                    if ord("b") == ord(start_col):
-                        for k in seating:    
-                            if (k["row"] == start_row) and (k["col"].lower() == "a"):
-                                # print(chr(ord(k["col"].lower())-1))
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row+1) and (k["col"].lower() == "a"):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row-1) and (k["col"].lower() == "a"):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                                k["Available"] = "e"
-                        
-                    if ord("y") == ord(end_col):
-                        for k in seating:    
-                            if (k["row"] == end_row) and (k["col"].lower() == "z"):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row+1) and (k["col"].lower() == "z"):
-                                k["Available"] = "e"
-                            elif (k["row"] == end_row-1) and (k["col"].lower() == "z"):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                                k["Available"] = "e"
-                            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                                k["Available"] = "e"
-
-                    if (ord("c") <= ord(start_col)) and (ord("x") >= ord(end_col)):
-                        if (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == end_row) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == end_row+1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-                        elif (k["row"] == end_row-1) and (chr(ord(k["col"].lower())+1) == chr(ord(end_col)+2)):
-                            k["Available"] = "e"
-                        
-
+                    socialDistancePlacer()
                 elif start_row >= 1:
+                    # to put the "e" above the "X"
                     ind = 0
                     for i in booked_seats:
                         row = int(booked_seats[ind][:-1]) - 1
@@ -310,8 +341,10 @@ def buySeating(js_seating):
                             if (k["row"] == row) and (k["col"].lower() == col):
                                 k["Available"] = "e"
                         ind += 1
-
+                    
+                    socialDistancePlacer()
                 elif start_row <= 18:
+                    #  to put the "e" below the "X"
                     ind = 0
                     for i in booked_seats:
                         row = int(booked_seats[ind][:-1]) + 1
@@ -321,7 +354,7 @@ def buySeating(js_seating):
                                 # print(seating[k]["Available"])
                                 k["Available"] = "e"
                         ind += 1
-                
+                    socialDistancePlacer()
                 saveJson(seating, "seating.json")
                 buy = True
             else:
@@ -331,11 +364,11 @@ def readReciepts():
     """
     gets all the receipts and formats them then prints out total profit"""
     reciepts = readJson("receipt.json")
+    profit = 0
     print("-"*55)
     print(" "*20 + "All Receipts")   
     print("-"*55)
     for i in reciepts:
- 
         print("-"*55)
         print(f"Name             : {i["Name"]}")
         print(f"Email            : {i["Email"]}")
@@ -348,10 +381,9 @@ def readReciepts():
         print("-"*55)
         print(f"Total            : ${i["Total"]}")
         print("-"*55) 
-        profit = 0
         profit += i["Total"]
     print("-"*55)
-    print(f"Total Profit generated is ${profit}")
+    print(f"Total Profit generated is ${profit:.2f}")
     print("-"*55)
 
 def createReciept(name, email, seats):
@@ -360,9 +392,9 @@ def createReciept(name, email, seats):
     """
     
     # find location of seats
-    if 0 <= int(seats[0][0]) <= 4:
+    if 0 <= int(seats[0][:-1]) <= 4:
         seatLoc = "front"
-    elif 5 <= int(seats[0][0]) <= 10:
+    elif 5 <= int(seats[0][:-1]) <= 10:
         seatLoc = "middle"
     else:
         seatLoc = "back"
