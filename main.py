@@ -460,8 +460,7 @@ def searchName():
             print("-"*55)
             print(f"Total            : ${i["Total"]}")
             print("-"*55) 
-        else:
-            print(f"No results for \"{name.capitalize()}\"")
+        
 
 def main():
     global concert_seats

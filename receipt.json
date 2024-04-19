@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "Name": "Arnav Gupta",
+        "Email": "gupta15@gmail.com",
+        "Number of Tickets": 6,
+        "Type": "middle",
+        "Seats": [
+            "10k",
+            "10l",
+            "10m",
+            "10n",
+            "10o",
+            "10p"
+        ],
+        "Cost": 300,
+        "Fee": 30,
+        "Subtotal": 330,
+        "Tax": 23.92,
+        "Total": 353.92
+    }
+]
