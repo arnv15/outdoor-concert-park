@@ -184,17 +184,17 @@ def socialDistancePlacer():
                 k["Available"] = "e"
             elif (k["row"] == end_row-1) and (k["col"].lower() == "z"):
                 k["Available"] = "e"
-            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+            elif (k["row"] == start_row) and (k["col"].lower() == chr(ord(start_col)-1)):
                 k["Available"] = "e"
-            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+            elif (k["row"] == start_row+1) and (k["col"].lower() == chr(ord(start_col)-1)):
                 k["Available"] = "e"
-            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-1)):
+            elif (k["row"] == start_row-1) and (k["col"].lower() == chr(ord(start_col)-1)):
                 k["Available"] = "e"
-            elif (k["row"] == start_row) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+            elif (k["row"] == start_row) and (k["col"].lower() == chr(ord(start_col)-2)):
                 k["Available"] = "e"
-            elif (k["row"] == start_row+1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+            elif (k["row"] == start_row+1) and (k["col"].lower() == chr(ord(start_col)-2)):
                 k["Available"] = "e"
-            elif (k["row"] == start_row-1) and (chr(ord(k["col"].lower())-1) == chr(ord(start_col)-2)):
+            elif (k["row"] == start_row-1) and (k["col"].lower() == chr(ord(start_col)-2)):
                 k["Available"] = "e"
 
     if (ord("c") <= ord(start_col)) and (ord("x") >= ord(end_col)):
@@ -249,7 +249,8 @@ def buySeating():
     """
     global start_col, start_row, end_col, end_row, seating
     buy = False
-    printSeating(concert_seats)
+    concert_seat = readJson("seating.json")
+    printSeating(concert_seat)
     while (not buy):
         seating = readJson("seating.json")
         num_seats = int(input("How much seats would you like to buy (max 24): "))
@@ -408,7 +409,6 @@ def createReciept(name, email, seats):
         cost = len(seats) * 25
 
     # create variables for the information
-    seatLoc = ""
     ticketNum = len(seats)
     fee = 5 * ticketNum
     subtotal = cost + fee
