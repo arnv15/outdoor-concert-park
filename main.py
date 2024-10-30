@@ -371,16 +371,16 @@ def readReciepts():
     print("-"*55)
     for i in reciepts:
         print("-"*55)
-        print(f"Name             : {i["Name"]}")
-        print(f"Email            : {i["Email"]}")
-        print(f"Number of Tickets: {i["Number of Tickets"]}")
-        print(f"Seats            : {i["Type"]}")
-        print(f"Cost             : ${i["Cost"]}")
-        print(f"Mask Fee         : ${i["Fee"]}")
-        print(f"Sub-Total        : ${i["Subtotal"]}")
-        print(f"Tax              : ${i["Tax"]}")
+        print(f"Name             : {i['Name']}")
+        print(f"Email            : {i['Email']}")
+        print(f"Number of Tickets: {i['Number of Tickets']}")
+        print(f"Seats            : {i['Type']}")
+        print(f"Cost             : ${i['Cost']}")
+        print(f"Mask Fee         : ${i['Fee']}")
+        print(f"Sub-Total        : ${i['Subtotal']}")
+        print(f"Tax              : ${i['Tax']}")
         print("-"*55)
-        print(f"Total            : ${i["Total"]}")
+        print(f"Total            : ${i['Total']}")
         print("-"*55) 
         profit += i["Total"]
     print("-"*55)
@@ -389,7 +389,7 @@ def readReciepts():
 
 def createReciept(name, email, seats):
     """
-    creates reciept for every purchase and stores into variables
+    creates receipt for every purchase and stores into variables
     """
     
     # find location of seats
@@ -449,16 +449,16 @@ def searchName():
             print(" "*20 + f"Receipt for {name.capitalize()}")   
             print("-"*55)
             print("-"*55)
-            print(f"Name             : {i["Name"]}")
-            print(f"Email            : {i["Email"]}")
-            print(f"Number of Tickets: {i["Number of Tickets"]}")
-            print(f"Seats            : {i["Type"]}")
-            print(f"Cost             : ${i["Cost"]}")
-            print(f"Mask Fee         : ${i["Fee"]}")
-            print(f"Sub-Total        : ${i["Subtotal"]}")
-            print(f"Tax              : ${i["Tax"]}")
+            print(f"Name             : {i['Name']}")
+            print(f"Email            : {i['Email']}")
+            print(f"Number of Tickets: {i['Number of Tickets']}")
+            print(f"Seats            : {i['Type']}")
+            print(f"Cost             : ${i['Cost']}")
+            print(f"Mask Fee         : ${i['Fee']}")
+            print(f"Sub-Total        : ${i['Subtotal']}")
+            print(f"Tax              : ${i['Tax']}")
             print("-"*55)
-            print(f"Total            : ${i["Total"]}")
+            print(f"Total            : ${i['Total']}")
             print("-"*55) 
         
 
